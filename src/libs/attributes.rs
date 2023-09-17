@@ -1,0 +1,15 @@
+pub enum Attribute {
+   Crossing,
+   Dribbling,
+   Passing,
+   Shooting,
+   Tackle,
+   Technique,
+   Aggression,
+   Creative,
+   Decision,
+   Leadership,
+   Movement,
+   Position,
+   Teamwork,
+}
