@@ -1,3 +1,4 @@
+#[derive(Hash,PartialEq)]
 pub enum Attribute {
    Crossing,
    Dribbling,
@@ -12,4 +13,9 @@ pub enum Attribute {
    Movement,
    Position,
    Teamwork,
+   Pace,
+   Stamina,
+   Strength,
+   Aero
 }
+impl Eq for Attribute {}

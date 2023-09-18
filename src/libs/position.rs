@@ -1,7 +1,8 @@
 use std::{str::FromStr, fmt::Display};
 
+#[derive(Hash,PartialEq)]
 pub enum Position {
-   GK,DR,DL,DC,DMC,MC,ML,MR,AMR,ST 
+   GK,DR,DL,DC,WBR,WBL,DMC,MC,ML,MR,AMC,AML,AMR,FL,FR,ST 
 }
 impl FromStr for Position {
     type Err = ();
@@ -26,7 +27,15 @@ impl Display for Position {
          Self::ML => write!(f,"ML"),
          Self::MR => write!(f,"MR"),
          Self::AMR => write!(f,"AMR"),
+         Self::WBR => write!(f,"WBR"),
+         Self::WBL => write!(f,"WBL"),
+         Self::AMC => write!(f,"AMC"),
+         Self::AML => write!(f,"AML"),
+         Self::FL => write!(f,"FL"),
+         Self::FR => write!(f,"FR"),
          Self::ST => write!(f,"ST"),
+
        }
    } 
 }
+impl Eq for Position {}
