@@ -1,4 +1,4 @@
-#[derive(Hash,PartialEq)]
+#[derive(Hash,PartialEq,Debug)]
 pub enum Attribute {
    Crossing,
    Dribbling,

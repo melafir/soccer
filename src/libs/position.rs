@@ -1,6 +1,6 @@
 use std::{str::FromStr, fmt::Display};
 
-#[derive(Hash,PartialEq)]
+#[derive(Hash,PartialEq,Debug)]
 pub enum Position {
    GK,DR,DL,DC,WBR,WBL,DMC,MC,ML,MR,AMC,AML,AMR,FL,FR,ST 
 }

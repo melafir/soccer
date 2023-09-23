@@ -1,7 +1,7 @@
 use std::fs::read_to_string;
 use std::path::Path;
+use std::str::FromStr;
 use crate::libs::player::Player;
-use crate::libs::position::Position;
 fn csvparser()->Vec<String> {
     let path = Path::new("forfm.csv");
     let mut t:Vec<String> = Vec::new();
@@ -20,12 +20,7 @@ pub fn toplayer()->Vec<Player>{
     let arr = csvparser();
     let mut t:Vec<Player> =Vec::new();
     for i in arr{
-        let temp:Vec<&str> = i.split(",").collect();
-        let id:i64 = temp[0].parse().unwrap();
-        let name = temp[1].to_string();
-        let surname = temp[2].to_string();
-        let position:Position = temp[3].parse().unwrap();
-        t.push(Player::new(id,name,surname,position));
+        t.push(Player::from_str(i.as_str()).unwrap());
     }
     t
 }
