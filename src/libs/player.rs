@@ -56,7 +56,6 @@ impl FromStr for Player{
         let surname:String = temp[2].to_string();
         let position:Position = temp[3].parse().unwrap();
         let attributes_string : Vec<String> = (&temp[4..]).to_vec().iter().map(|i| i.trim_end_matches("\r").to_string()).collect();
-        //let mut attribute:HashMap<Attribute,i8> = HashMap::new();
         let mut attributes:HashMap<Attribute, i8> = HashMap::new();
         attributes_string.iter().enumerate().for_each(|(index,i)|{
             let t:i8 = i.parse().unwrap();
