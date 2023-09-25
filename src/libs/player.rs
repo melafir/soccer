@@ -1,45 +1,45 @@
 use std::{fmt::Display,str::FromStr, string::ParseError, collections::HashMap};
 
 use crate::libs::position::Position;
+use super::{attributes::Attribute, roles::{Roles, AttributesRole}};
 
-use super::attributes::Attribute;
+
 #[derive(Debug)]
 pub struct Player {
     id:i64,
     name:String,
-    surname:String,
-    position: Position,
-    attributes:Vec<String>,
+    pub surname:String,
+    pub position: Position,
+    pub attributes:HashMap<Attribute,i8>,
 }
 impl Player {
-   pub fn new(id:i64, name:String, surname:String, position:Position,attributes: Vec<String>)->Self{
-        Self { id, name, surname, position,attributes}
-   }
-    pub fn calc(&self)->HashMap<Attribute,i8>{
-        let mut hm:HashMap<Attribute,i8> = HashMap::new();
-        self.attributes.iter().enumerate().for_each(|(index,i)|{
-            let t:i8 = i.parse().unwrap();
-            let _ = match index {
-               0 => hm.insert(Attribute::Crossing, t),
-               1 => hm.insert(Attribute::Dribbling, t),
-               2 => hm.insert(Attribute::Passing, t),
-               3 => hm.insert(Attribute::Shooting, t),
-               4 => hm.insert(Attribute::Tackle, t),
-               5 => hm.insert(Attribute::Technique, t),
-               6 => hm.insert(Attribute::Aggression, t),
-               7 => hm.insert(Attribute::Creative, t),
-               8 => hm.insert(Attribute::Decision, t),
-               9 => hm.insert(Attribute::Leadership, t),
-               10 => hm.insert(Attribute::Movement, t),
-               11 => hm.insert(Attribute::Position, t),
-               12 => hm.insert(Attribute::Teamwork, t),
-               _ => panic!("Out of attributes range")
-            };
-        });
-        hm
+    pub fn getattributes(&self){
+        println!("{}",self.surname);
+        for (k,v) in self.attributes.iter(){
+            println!("{:?} {}",k,v)
+        }
     }
-    pub fn getattributes(&self)->Vec<String>{
-        self.attributes.clone()
+    pub fn getattributesum(&self)->i16{
+        let mut sum:i16 = 0;
+        for v in self.attributes.values(){
+           sum += *v as i16 ;
+        }
+        sum
+    }
+    pub fn calcroles(&self) ->HashMap<Roles,(i8,f32)>{
+        let attr = AttributesRole::make();
+        let mut hm:HashMap<Roles,(i8,f32)> = HashMap::new();
+        for (r,va) in attr{
+            let mut sum = 0;
+            let av = va.len();
+            for i in va{
+               sum +=self.attributes.get(&i).unwrap();
+            }
+
+            hm.insert(r, (sum,((sum as f32/(av as f32))*100.00).round()/100.00));
+
+        }
+        hm
     }
 }
 impl Display for Player {
@@ -55,8 +55,32 @@ impl FromStr for Player{
         let name:String = temp[1].to_string();
         let surname:String = temp[2].to_string();
         let position:Position = temp[3].parse().unwrap();
-        let attributes : Vec<String> = (&temp[4..]).to_vec().iter().map(|i| i.trim_end_matches("\r").to_string()).collect();
-        
+        let attributes_string : Vec<String> = (&temp[4..]).to_vec().iter().map(|i| i.trim_end_matches("\r").to_string()).collect();
+        //let mut attribute:HashMap<Attribute,i8> = HashMap::new();
+        let mut attributes:HashMap<Attribute, i8> = HashMap::new();
+        attributes_string.iter().enumerate().for_each(|(index,i)|{
+            let t:i8 = i.parse().unwrap();
+            let _ = match index {
+               0 => attributes.insert(Attribute::Crossing, t),
+               1 => attributes.insert(Attribute::Dribbling, t),
+               2 => attributes.insert(Attribute::Passing, t),
+               3 => attributes.insert(Attribute::Shooting, t),
+               4 => attributes.insert(Attribute::Tackle, t),
+               5 => attributes.insert(Attribute::Technique, t),
+               6 => attributes.insert(Attribute::Aggression, t),
+               7 => attributes.insert(Attribute::Creative, t),
+               8 => attributes.insert(Attribute::Decision, t),
+               9 => attributes.insert(Attribute::Leadership, t),
+               10 =>attributes.insert(Attribute::Movement, t),
+               11 =>attributes.insert(Attribute::Position, t),
+               12 =>attributes.insert(Attribute::Teamwork, t),
+               13 =>attributes.insert(Attribute::Pace, t),
+               14 =>attributes.insert(Attribute::Stamina, t),
+               15 =>attributes.insert(Attribute::Strength,t),
+               16 =>attributes.insert(Attribute::Aero, t),
+               _ => panic!("Out of attributes range")
+            };
+        });
         Ok(Player{
             id,name,surname,position,attributes
         })
