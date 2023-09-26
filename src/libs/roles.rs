@@ -17,7 +17,7 @@ pub enum Roles {
 }
 impl Display for Roles{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let  ten_string_check = move |i:& str|->String{
+        let  ten_string_check = |i:& str|->String{
             if i.len()>=15{
                 i[0..15].to_string()
             }else{
