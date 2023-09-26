@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Display};
 
 use crate::libs::position::Position;
 
@@ -14,6 +14,58 @@ pub enum Roles {
    InsideForward,AttackingMidfielder,ShadowStriker,Trequartiesta,
    PressingForward,
    Poacher,TargetForward,DeepLyingForward,AdvanceForward,CompleteForward
+}
+impl<'a> Display for Roles{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            let mut t = "".to_string();
+        let mut  ten_string_check = move |i:&'a str|->&'a str{
+            if i.len()>=15{
+                &i[0..15]
+            }else{
+                t = i.to_string();
+                for _ in 0..(15-i.len()){
+                    t+=" ";
+                }
+                format!("{}",t).as_str()
+            }
+            
+        };
+        match self {
+          Self::Goalkeeper => write!(f,"{}",ten_string_check("Goalkeeper")),
+          Self::SweeperKeeper => write!(f,"{}",ten_string_check("Sweeper Keeper")),
+          Self::FullBack => write!(f,"{}",ten_string_check("Full Back")),
+          Self::DefensivFullBack => write!(f,"{}",ten_string_check("Defensive Full Back")),
+          Self::WingBack => write!(f,"{}",ten_string_check("Wing Back")),
+          Self::InvertedWingBack => write!(f,"{}",ten_string_check("Inverted Wing Back")),
+          Self::CentralDefender => write!(f,"{}",ten_string_check("Central Defender")),
+          Self::BallPlayingDefender => write!(f,"{}",ten_string_check("Ball Playing Defender")),
+          Self::NoNonsenseCentrBack => write!(f,"{}",ten_string_check("No-Nonsense CentreBack")),
+          Self::Sweeper => write!(f,"{}",ten_string_check("Sweeper")),
+          Self::Libero => write!(f,"{}",ten_string_check("Libero")),
+          Self::DefensiveMidfielder => write!(f,"{}",ten_string_check("Defensive Midfielder")),
+          Self::DeepLyingPlaymaker => write!(f,"{}",ten_string_check("Deep Lying Playmaker")),
+          Self::Anchor => write!(f,"{}",ten_string_check("Anchor")),
+          Self::BallWinningMidfielder => write!(f,"{}",ten_string_check("Ball Winning Midfielder")),
+          Self::RoamingPlaymaker => write!(f,"{}",ten_string_check("Roaming Playmaker")),
+          Self::CentralMidfielder => write!(f,"{}",ten_string_check("Central Midfielder")),
+          Self::BoxtoBoxMidfielder => write!(f,"{}",ten_string_check("Box to Box Midfielder")),
+          Self::AdvancePlaymaker => write!(f,"{}",ten_string_check("Advance Playmaker")),
+          Self::WideMidfielder => write!(f,"{}",ten_string_check("Wide Midfielder")),
+          Self::Winger => write!(f,"{}",ten_string_check("Winger")),
+          Self::DefensiveWinger => write!(f,"{}",ten_string_check("Defensive Winger")),
+          Self::InvertedWinger => write!(f,"{}",ten_string_check("Inverted Winger")),
+          Self::InsideForward => write!(f,"{}",ten_string_check("InsideForward")),
+          Self::AttackingMidfielder => write!(f,"{}",ten_string_check("Attacking Midfielder")),
+          Self::ShadowStriker => write!(f,"{}",ten_string_check("Shadow Striker")),
+          Self::Trequartiesta => write!(f,"{}",ten_string_check("Trequartiesta")),
+          Self::PressingForward => write!(f,"{}",ten_string_check("Pressing Forward")),
+          Self::Poacher => write!(f,"{}",ten_string_check("Poacher")),
+          Self::TargetForward => write!(f,"{}",ten_string_check("Target Forward")),
+          Self::DeepLyingForward => write!(f,"{}",ten_string_check("Deep Lying Forward")),
+          Self::AdvanceForward => write!(f,"{}",ten_string_check("Advance Forward")),
+          Self::CompleteForward => write!(f,"{}",ten_string_check("Complete Forward")),
+        }  
+    }
 }
 impl Eq for Roles {}
 

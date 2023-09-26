@@ -8,8 +8,20 @@ impl FromStr for Position {
     type Err = ();
   fn from_str(s: &str) -> Result<Self, Self::Err> {
        match s {
+          "gk"=>Ok(Position::GK),
+          "dr"=>Ok(Position::DR),
+          "dl"=>Ok(Position::DL),
           "dc"=>Ok(Position::DC),
+          "wbr"=>Ok(Position::WBR),
+          "wbl"=>Ok(Position::WBL),
+          "dmc"=>Ok(Position::DMC),
           "mc"=>Ok(Position::MC),
+          "ml"=>Ok(Position::ML),
+          "mr"=>Ok(Position::MR),
+          "amc"=>Ok(Position::AMC),
+          "aml"=>Ok(Position::AML),
+          "fl"=>Ok(Position::FL),
+          "fr"=>Ok(Position::FR),
           "st"=>Ok(Position::ST),
           _ => Err(())
        }

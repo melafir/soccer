@@ -41,6 +41,13 @@ impl Player {
         }
         hm
     }
+    pub fn print_calcroles(&self)->Vec<String>{
+        let mut ar:Vec<String> = Vec::new();
+        self.calcroles().iter().for_each(|(r,(_,av))|{
+            ar.push(format!("{} | {}",r,av))
+        });
+        ar
+    }
 }
 impl Display for Player {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
