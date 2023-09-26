@@ -15,18 +15,17 @@ pub enum Roles {
    PressingForward,
    Poacher,TargetForward,DeepLyingForward,AdvanceForward,CompleteForward
 }
-impl<'a> Display for Roles{
+impl Display for Roles{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            let mut t = "".to_string();
-        let mut  ten_string_check = move |i:&'a str|->&'a str{
+        let  ten_string_check = move |i:& str|->String{
             if i.len()>=15{
-                &i[0..15]
+                i[0..15].to_string()
             }else{
-                t = i.to_string();
+                let mut t = i.to_string();
                 for _ in 0..(15-i.len()){
-                    t+=" ";
+                    t.push(' ');
                 }
-                format!("{}",t).as_str()
+                t
             }
             
         };
