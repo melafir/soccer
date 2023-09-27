@@ -20,6 +20,7 @@ impl FromStr for Position {
           "mr"=>Ok(Position::MR),
           "amc"=>Ok(Position::AMC),
           "aml"=>Ok(Position::AML),
+          "amr"=>Ok(Position::AMR),
           "fl"=>Ok(Position::FL),
           "fr"=>Ok(Position::FR),
           "st"=>Ok(Position::ST),

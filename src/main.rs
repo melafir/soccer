@@ -1,6 +1,6 @@
 use soccer::libs::csvparser;
 fn main() {
-    let f = csvparser::toplayer();
+    let f = csvparser::choose(); 
     for i in f{
         println!("{} -> {}",i.surname,i.getattributesum());
         i.calcroles().iter().enumerate().for_each(|(index,(r,(_,av)))|{
@@ -9,6 +9,7 @@ fn main() {
                 println!();
             }
         });
+        println!();
         println!();
     }
 }
