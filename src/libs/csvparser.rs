@@ -1,5 +1,5 @@
 use std::fs::read_to_string;
-use std::path::Path;
+use std::path::PathBuf;
 use std::str::FromStr;
 use std::io::{self, Write};
 
@@ -8,10 +8,17 @@ use crate::libs::roles::AttributesRole;
 
 use super::roles::Roles;
 
-fn csvparser(f:&str)->Vec<String> {
-    let path = Path::new(f);
+fn csvparser(f:String)->Vec<String> {
+    let path = ||->PathBuf{
+        if cfg!(debug_assertions){
+            PathBuf::from(f.as_str())
+        }else{
+            let p1 = std::env::current_exe().unwrap();
+            p1.parent().unwrap().join(f.as_str())
+        }
+    };
     let mut t:Vec<String> = Vec::new();
-    match read_to_string(path){
+    match read_to_string(path()){
         Err(e)=>panic!("{}",e),
         Ok(f)=>{
             let mut temp:Vec<&str> = f.split("\n").collect();
@@ -22,7 +29,7 @@ fn csvparser(f:&str)->Vec<String> {
     }
     t
 }
-pub fn toplayer(f:&str)->Vec<Player>{
+pub fn toplayer(f:String)->Vec<Player>{
     let arr = csvparser(f);
     let mut t:Vec<Player> =Vec::new();
     for i in arr{
@@ -52,8 +59,8 @@ pub fn choose(){
         let cr:usize = chrole.trim().parse().expect("Faild to parse role");
         println!();
         if cr==0{break;}
-        let mut f = toplayer("forfm.csv");
-        let d = toplayer("duble.csv");
+        let mut f = toplayer("forfm.csv".to_string());
+        let d = toplayer("duble.csv".to_string());
         f.extend(d);
         let role = roles_array[cr-1];
         let out = pr_by_roles(role, f);
